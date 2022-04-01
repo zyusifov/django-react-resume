@@ -19,9 +19,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
-    'apps.oauth'
+    'corsheaders',
+
+    # apps
+    'apps.oauth',
+
+    # oauth
+    'oauth2_provider',
+    'social_django',
+    'drf_social_oauth2'
 ]
 
 MIDDLEWARE = [
