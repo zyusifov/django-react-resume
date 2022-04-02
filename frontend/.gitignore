@@ -1,7 +1,0 @@
-.DS_STORE
-node_modules
-*~
-*.pyc
-.grunt
-__benchmarks__
-build/
