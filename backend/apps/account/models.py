@@ -4,24 +4,12 @@ from django.contrib.auth.models import (
 )
 
 
-AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google', 'email': 'email'}
-
 class UserManager(BaseUserManager):
-    def create_superuser(self, email, username, password=None):
-        """
-        Creates and saves a User with the given email and password.
-        """
+    def create_user(self, email, password=None):
         if not email:
             raise ValueError('Users must have an email address')
-        
-        if not username:
-            raise ValueError('Users must have an username')
-
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username
-        )
-
+        email = self.normalize_email(email)
+        user = self.model(email=email)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -29,20 +17,17 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     objects = UserManager()
-    
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
         unique=True,
     )
+    first_name = models.CharField(max_length=255, null=True)
+    last_name = models.CharField(max_length=255, null=True)
     username = models.TextField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     staff = models.BooleanField(default=True)
     admin = models.BooleanField(default=True)
-
-    auth_provider = models.CharField(
-        max_length=255, blank=False,
-        null=False, default=AUTH_PROVIDERS.get('email'))
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
