@@ -4,6 +4,8 @@ from django.contrib.auth.models import (
 )
 
 
+AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google', 'email': 'email'}
+
 class UserManager(BaseUserManager):
     def create_superuser(self, email, username, password=None):
         """
@@ -38,25 +40,25 @@ class User(AbstractBaseUser):
     staff = models.BooleanField(default=True)
     admin = models.BooleanField(default=True)
 
+    auth_provider = models.CharField(
+        max_length=255, blank=False,
+        null=False, default=AUTH_PROVIDERS.get('email'))
+
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username'] # Email & Password are required by default.
+    REQUIRED_FIELDS = ['username']
 
     def get_full_name(self):
-        # The user is identified by their email address
         return self.email
 
     def get_short_name(self):
-        # The user is identified by their username
         return self.username
     
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
@@ -68,6 +70,11 @@ class User(AbstractBaseUser):
     def is_admin(self):
         "Is the user a admin member?"
         return self.admin
+
+    @property
+    def is_veridied(self):
+        "Is the user a veridied member?"
+        return self.veridied
 
     def __str__(self):
         return self.email
