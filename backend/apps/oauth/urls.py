@@ -1,7 +1,7 @@
-from django.urls import path
-
-from .views import GoogleSocialAuthView
+from django.urls import path, include
 
 urlpatterns = [
-    path('google/', GoogleSocialAuthView.as_view()),
+    path('', include('djoser.urls')),
+    path('', include('djoser.urls.jwt')),
+    path('', include('djoser.social.urls')),
 ]
