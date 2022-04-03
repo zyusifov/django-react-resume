@@ -1,7 +1,8 @@
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
-from .models import User
+from .models.user import User
+from .models.resume import Resume
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
@@ -48,3 +49,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class ResumeSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        model = Resume
+        fields= '__all__'
