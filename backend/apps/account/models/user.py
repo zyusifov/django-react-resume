@@ -30,7 +30,6 @@ class User(AbstractBaseUser):
     admin = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
 
     def get_full_name(self):
         return self.email
@@ -63,3 +62,4 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.email
+
