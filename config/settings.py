@@ -22,6 +22,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+
+    # Custom apps
+    'apps.account',
 ]
 
 MIDDLEWARE = [
@@ -91,3 +96,15 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
+ALGORITHM = 'HS256'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('apps.account.auth.auth_backend.AuthBackend',),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
