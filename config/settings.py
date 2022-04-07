@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 
     # Custom apps
     'apps.account',
+    'apps.resume',
 ]
 
 MIDDLEWARE = [
