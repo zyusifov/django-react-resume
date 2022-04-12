@@ -7,3 +7,10 @@ class ResumeSerializer(ModelSerializer):
     class Meta:
         model = Resume
         fields = '__all__'
+
+
+class UserResumeSerializer(ModelSerializer):
+    
+    class Meta:
+        model = Resume
+        exclude = ('user', )
