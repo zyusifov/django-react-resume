@@ -42,3 +42,4 @@ def register_user(request_data):
             raise AuthenticationFailed(detail='User already registered')
     else:
         raise AuthenticationFailed(detail='Passwords not equal')
+
