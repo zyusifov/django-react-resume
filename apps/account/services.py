@@ -1,6 +1,8 @@
 from .models import User
 import hashlib
 from rest_framework.exceptions import AuthenticationFailed
+import jwt
+from django.conf import settings
 
 
 def get_user_data(request_data) -> User:
@@ -43,3 +45,11 @@ def register_user(request_data):
     else:
         raise AuthenticationFailed(detail='Passwords not equal')
 
+
+def verify_user(token):
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=settings.ALGORITHM)
+        User.objects.filter(id=payload['user_id']).update(is_virified=True)
+        return True
+    except:
+        return False

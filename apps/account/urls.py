@@ -1,8 +1,8 @@
-from django.urls import path, include
+from django.urls import path
 from .views import *
 
 urlpatterns = [
     path('auth/login/', login),
     path('auth/register/', register),
-    path('resume/', include('apps.resume.urls')),
+    path('auth/verify/', verify_email),
 ]
