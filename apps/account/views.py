@@ -23,7 +23,7 @@ def register(request):
     user_data = register_user(request.data)
     token = create_token(user_data.id)
     domain = f"http://127.0.0.1:8000/auth/verify/?token={token['access_token']}" 
-    Util.send_email(domain, user_data.email)
+    Util.send_email("Click to link for confirmation"+domain, user_data.email)
     return Response({"detail": "Confirm your email"})
 
 
