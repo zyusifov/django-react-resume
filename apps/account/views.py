@@ -12,8 +12,11 @@ def login(request):
     """ Подтверждение авторизации пользователя
     """
     user_data = get_user_data(request.data)
-    token = create_token(user_data.id)
-    return Response(token)
+    if user_data.is_virified:
+        token = create_token(user_data.id)
+        return Response(token)
+    else:
+        return Response({"detail": "Confirm your email"})
 
 
 @api_view(["POST"])

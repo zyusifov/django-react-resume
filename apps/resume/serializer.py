@@ -54,12 +54,6 @@ class ResumeSerializer(ModelSerializer):
 
 class UserResumeSerializer(ModelSerializer):
 
-    skill = SkillSerializer(many=True)
-    user = UserSerializer()
-    education = EducationSerializer(many=True)
-    language = LanguageSerializer(many=True)
-    work_experience = WorkExperienceSerializer(many=True)
-    
     class Meta:
         model = Resume
         exclude = ('user',)

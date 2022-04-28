@@ -7,5 +7,5 @@ urlpatterns = [
     path('create/', ResumeCreateView.as_view()),
     path('skill/', SkillView.as_view({'get': 'list'})),
     path('education/', EducationView.as_view({'get': 'list'})),
-    path('<int:pk>/', ResumeView.as_view()),
+    path('<int:pk>/', ResumeView.as_view({'get': 'list'})),
 ]
