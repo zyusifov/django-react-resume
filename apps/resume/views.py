@@ -3,9 +3,11 @@ from .serializer import *
 from .models import *
 
 
-class ResumeView(generics.ListAPIView):
+class ResumeView(viewsets.ModelViewSet):
     serializer_class = ResumeSerializer
-    queryset = Resume.objects.all()
+
+    def get_queryset(self):
+        return Resume.objects.filter(id=self.kwargs.get('pk'))
 
 
 class ResumeListView(generics.ListAPIView):
